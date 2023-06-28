@@ -1,10 +1,13 @@
 # Database Rental Mobil
-## Anggota Kelompok
-> 1. **Zahra Nurhaliza** (312210364)
-> 2. **Hafiz Faturrahman** (312210375)
-> 3. **Liskania Aprilia** (312210383)
-> 4. **Anggita Risqi Nur Clarita** (312210450)
-> 5. **Faizah Via Fadhillah** (312210460)
+## Anggota Kelompok <br>
+|**Nama**|**NIM**|**Kelas**|**Matkul**|
+|----|---|-----|------|
+|Zahra Nurhaliza|312210364|TI.22.A.4|Basis Data|
+|Liskania Aprilia|312210383|TI.22.A.4|Basis Data|
+|Anggita Risqi Nur Clarita|312210450|TI.22.A.4|Basis Data|
+|Faizah Via Fadhillah|312210460|TI.22.A.4|Basis Data|
+|Hafiz Faturrahman|312210375|TI.22.A.4|Basis Data|
+
 
 ## DAFTAR ISI <br>
 | No | Description | Link |
@@ -14,12 +17,31 @@
 |3|DDL Rental Mobil|[Click Here](#ddl-rental-mobil)|
 |4|SQL CURD Rental Mobil|[Click Here](#sql-curd-rental-mobil)|
 |5|SQL Join Rental Mobil|[Click Here](#sql-join-rental-mobil)|
+|6|Presentasi (Link Youtube)|[Click Here](https://youtu.be/zhFQsQt_oRs)|
 
 ## Perintah
 ![image](https://github.com/AnggitaRisqiNC/Rental-Mobil/blob/main/screenshot/Perintah%20Soal.png)
 
 ### ER-D Rental Mobil
 ![image](https://github.com/AnggitaRisqiNC/Rental-Mobil/blob/main/ER-D%20Rental%20Mobil/ER-D%20Rental%20Mobil.jpeg)
+
+> #### *Penjelasan*
+> * Entitas **Kendaraan** memiliki atribut id_kendaraan (sebagai PRIMARY KEY), merk, warna, harga_sewa, dan status_kendaraan.
+>
+> * Entitas **Sopir** memiliki atribut id_sopir (sebagai PRIMARY KEY), id_kendaraan (sebagai FOREIGN KEY), nama_sopir, no_hp_sopir, dan status_sopir.
+>
+> * Entitas **Customer** memiliki atribut id_customer (sebagai PRIMARY KEY), nama_customer, alamat_customer, no_hp_customer, dan email.
+>
+> * Entitas **Transaksi** memiliki atribut id_transaksi (sebagai PRIMARY KEY), id_kendaraan (sebagai FOREIGN KEY), id_sopir (sebagai FOREIGN KEY), id_customer (sebagai FOREIGN KEY), tgl_sewa, tgl_kembali, total_harga, tgl_pembayaran, metode_pembayaran, status_transaksi.
+
+> #### *Kardinalitas*
+> 1. Relasi one-to-many antara entitas **Kendaraan** dengan entitas **Sopir**.
+>
+> 2. Relasi one-to-many antara entitas **Sopir** dengan entitas **Transaksi**.
+>
+> 3. Relasi one-to-many antara entitas **Customer** dengan entitas **Transaksi**.
+>
+> Maaf pada gambar, salah satu atribut Transaksi yaitu **id_sopir** yang sebagai **FOREIGN KEY** typo ditulis 2 kali seharusnya yang satu lagi **id_kendaraan**.
 
 ### DDL Rental Mobil
 #### 1. Membuat Database
@@ -32,7 +54,7 @@ CREATE DATABASE RentalMobil;
 ```sql
 USE RentalMobil;
 ```
-> Perintah USE, digunakan untuk masuk kedalam database, atau
+> Perintah `USE`, digunakan untuk masuk kedalam database, atau
 berganti ke database lain.
 
 #### 3. Menghapus Database
@@ -85,8 +107,11 @@ CREATE TABLE Transaksi (
 );
 ```
 
-> Sebelum membuat Tabel, pastikan database aktif yang digunakan dengan terlebih dahulu masuk kedalam databasenya, dengan perintah USE.
-> Dalam script di atas, telah dibuat tabel-tabel sesuai dengan skema ERD yang telah disebutkan. Tabel-tabel tersebut antara lain: Kendaraan, Sopir, Customer, Transaksi, dan Laporan_Transaksi. Setiap tabel memiliki kolom-kolom yang sesuai dengan atribut-atribut yang terdapat dalam skema ERD, dan beberapa di antaranya memiliki tipe data yang sesuai seperti VARCHAR, INT, ENUM, dan DATE. Tabel-tabel tersebut juga saling memiliki relasi.
+> Sebelum membuat Tabel, pastikan database aktif yang digunakan dengan terlebih dahulu masuk kedalam databasenya, dengan perintah `USE`.
+>
+> Dalam script di atas, telah dibuat tabel-tabel sesuai dengan skema ERD yang telah disebutkan. Tabel-tabel tersebut antara lain: Kendaraan, Sopir, Customer, Transaksi, dan Laporan_Transaksi.
+>
+> Setiap tabel memiliki kolom-kolom yang sesuai dengan atribut-atribut yang terdapat dalam skema ERD, dan beberapa di antaranya memiliki tipe data yang sesuai seperti `VARCHAR`, `INT`, `ENUM`, dan `DATE`. Tabel-tabel tersebut juga saling memiliki relasi.
 
 
 #### 5. Menampilkan Struktur Tabel
@@ -119,8 +144,8 @@ perintah: `DESC [nama_tabel];`
 #### Create
 ```sql
 INSERT INTO Kendaraan (id_kendaraan, merk, warna, harga_sewa, status_kendaraan)
-VALUES (1, 'Tesla', 'Hitam', 4000000, 'Tersedia'), 
-	   (2, 'Wuling', 'Cream', 1000000, 'Tidak Tersedia'),
+VALUES (1, 'Tesla', 'Hitam', 4000000, 'Tersedia'),
+       (2, 'Wuling', 'Cream', 1000000, 'Tidak Tersedia'),
        (3, 'Lamborghini', 'Putih', 5000000, 'Tersedia'),
        (4, 'Porsche', 'Biru', 7000000, 'Tersedia'),
        (5, 'Alphard', 'Silver', 3000000, 'Tersedia'),
@@ -129,24 +154,24 @@ VALUES (1, 'Tesla', 'Hitam', 4000000, 'Tersedia'),
 
 INSERT INTO Sopir (id_sopir, id_kendaraan, nama_sopir, no_hp_sopir, status_sopir)
 VALUES (123, 1, 'Johnny', '08123456789', 'Tersedia'),
-	   (234, 3, 'Yuta', '08234567890', 'Tersedia'),
+       (234, 3, 'Yuta', '08234567890', 'Tersedia'),
        (345, 2, 'Jay', '08345678901', 'Tidak Tersedia'),
        (456, 5, 'Eric', '08456789012', 'Tersedia'),
        (567, 4, 'Sehun', '08567890123', 'Tersedia'),
-	   (678, 6, 'Felix', '08678901234', 'Tersedia');
+       (678, 6, 'Felix', '08678901234', 'Tersedia');
 
 INSERT INTO Customer (id_customer, nama_customer, alamat_customer, no_hp_customer, email)
 VALUES (10, 'Mark', 'Jl. Ilichil No. 127', '0802081999', 'mark@gmail.com'), 
-	   (20, 'Karina', 'Jl. Kwangya No. 140', '0811042000', 'karina@gmail.com'),
-	   (30, 'Malfoy', 'Jl. Epsom No. 160', '0822091987', 'malfoy@gmail.com'),
+       (20, 'Karina', 'Jl. Kwangya No. 140', '0811042000', 'karina@gmail.com'),
+       (30, 'Malfoy', 'Jl. Epsom No. 160', '0822091987', 'malfoy@gmail.com'),
        (40, 'Yeri', 'Jl. Cake No. 539', '0805031999', 'yeri@gmail.com'),
        (50, 'Jake', 'Jl. Carat No. 96', '0815061996', 'Hoshi@gmail.com');
 
 INSERT INTO Transaksi (id_transaksi, id_kendaraan, id_sopir, id_customer, tgl_sewa, tgl_kembali, total_harga, tgl_pembayaran, metode_pembayaran, status_transaksi)
 VALUES (11, 3, 234, 10, '2023-03-13', '2023-03-18', 25000000, '2023-03-13', 'Cash', 'Selesai'),
-	   (12, 4, 567, 30, '2023-04-17', '2023-04-22', 35000000, '2023-04-17', 'Cash', 'Selesai'),
+       (12, 4, 567, 30, '2023-04-17', '2023-04-22', 35000000, '2023-04-17', 'Cash', 'Selesai'),
        (13, 1, 123, 20, '2023-05-08', '2023-05-13', 20000000, '2023-05-08', 'Debit', 'Selesai'),
-	   (14, 5, 456, 40, '2023-06-12', '2023-06-19', 15000000, '2023-06-12', 'Debit', 'Selesai'),
+       (14, 5, 456, 40, '2023-06-12', '2023-06-19', 15000000, '2023-06-12', 'Debit', 'Selesai'),
        (15, 6, 678, 50, '2023-07-09', '2023-07-14', 30000000, '2023-07-09', 'Cash', 'Selesai');
 ```
 
@@ -265,7 +290,7 @@ LEFT JOIN Customer ON Transaksi.id_customer = Customer.id_customer;
 
 ![image](https://github.com/AnggitaRisqiNC/Rental-Mobil/blob/main/screenshot/18.png)
 
-> Menampilkan Id_transaksi, Merk kendaraan, Total harga, Nama sopir, Nama customer, dan Status transaksi.
+> Menampilkan Id_transaksi, Merk kendaraan, Total harga, Nama customer, dan Status transaksi.
 
 
 ### 3. RIGHT JOIN
